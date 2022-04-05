@@ -1,0 +1,110 @@
+=>DISTINCT STATEMENT
+DISTINCT Syntax
+
+SELECT DISTINCT column1,column2....
+FROM tablename;
+
+______________________________________
+
+EXERCISE
+
+SELECT * FROM employees;
+
+SELECT DISTINCT city FROM employees;
+
+SELECT DISTINCT salary FROM employees;
+
+SELECT DISTINCT age FROM employees;
+
+SELECT DISTINCT age FROM employees ORDER BY age;
+
+SELECT DISTINCT age FROM employees ORDER BY ASC;
+
+SELECT DISTINCT age FROM employees ORDER BY DESC;
+
+SELECT COUNT city FROM employees;
+
+SELECT COUNT(DISTINCT city) FROM employees;
+
+=>GROUP BY Clause  //12-01-2022(Sat)
+
+Note: same value into summary (eg..city,country,age)
+		used with aggrefate functions (COUNT(),MAX(),MIN(),SUM(),AVG())
+		GROUP BY IS placed after the WHERE clause.
+		GROUP BY condition column name must have in expression
+
+=Syntax
+
+SELECT col1,col2,aggregate(col3),...
+FROM tablename
+WHERE condition...
+GROUP BY col1,col2,....col_n;
+___________________________________________
+
+=>GROUP BY vs. DISTINCT
+
+SELECT DISTINCT city FROM persons;
+SELECT city FROM persons GROUP BY city;
+
+SELECT DISTINCT address FROM persons;
+SELECT address FROM persons GROUP BY address;
+
+________________________________ 
+
+=>GROUP BY with COUNT()
+
+SELECT COUNT(*),city FROM persons GROUP BY address;
+SELECT COUNT(*),address FROM persons GROUP BY address;
+
+SELECT COUNT(*),firstname FROM persons GROUP by firstname;
+SELECT COUNT(*),lastname FROM persons GROUP by  lastname;
+
+SELECT COUNT(*),city ;
+FROM persons
+GROUP BY CITY;
+
+SELECT COUNT(*),city
+FORM persons
+GROUP BY city
+ORDER BY city DESC;
+
+no.12
+no.13
+no.14
+
+1 no.12 Yangon 
+2 no.13 mandalay
+3 no.14 yangon
+
+Mg Mg = pay day lone
+123 ma ma 
+456 chit lay
+789 tal lay 
+980 baby
+007 ko tha 
+
+Aye Aye = pay day lone 
+001 may may 
+002 father 
+003 maung
+004 ko ko
+007 ko tha 
+
+su su = pay day lone 
+003 ko 
+009 friend
+111 maung maung 
+
+________________________________
+=>GROUP BY clause with MIN()/MAX()
+
+SELECT COUNT(*),salary FORM employees GROUP BY salary;
+
+SELECT city FROM employees 
+GROUP BY city;
+
+SELECT city,SUM(salary) FROM employees
+GROUP BY city;
+
+SELECT  city,MIN(salary) FROM employees GROUP BY city;
+SELECT  city,MAX(salary) FROM employees GROUP BY city;

@@ -1,0 +1,121 @@
+=>Join
+
+1.INNER JOIN (or we can call Simple Join)
+2.LEFT OUTER JOIN (or we can call Left Join)
+3.RIGHT OUTER JOIN (or we can call Right Join)
+4.FULL JOIN
+
+____________________________________________
+
+CREATE TABLE customers(
+id  INT AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(20),
+lastname VARCHAR(50),
+email VARCHAR(50)
+);
+
+DESC customers;
+
+CREATE TABLE IF NOT EXISTS orders(
+id INT AUTO_INCREMENT PRIMARY KEY,
+orderdate DATE,
+amount DECIMAL(10,2),
+customer_id INT
+);
+
+DESC orders;
+
+INSERT INTO customers(firstname,lastname,email)
+VALUES ("aung","aung","aungaung@gmail.com"),
+("maung","maung","maungmaung@gmail.com"),
+("kyaw","kyaw","kyawkyaw@gmail.com"),
+("zaw","zaw","zawzaw@gmail.com"),
+("su","su","susu@gmail.com"),
+("aye","aye","ayeaye@gmail.com"),
+("yu","yu","yuyu@gmail.com");
+
+INSERT INTO orders(orderdate,amount,customer_id)
+VALUES(2021/02/10,99.99,1),
+(2021/10/11,75.35,1),
+(2021/06/12,100.26,3),
+(2021/07/13,13.25,2),
+(2021/01/14,45,3);
+
+INSERT INTO orders(orderdate,amount,customer_id)
+VALUES("2021/10/10",70.25,20);
+
+SELECT * FROM customers WHERE lastname = "aung";
+
+SELECT * FROM orders WHERE customer_id = 1;
+
+SELECT * FROM orders WHERE customer_id = (
+SELECT id FROM customers WHERE lastname = "aung"
+);
+
+SELECT * FROM orders WHERE customer_id = 2;
+
+SELECT * FROM orders WHERE customer_id = (
+SELECT id FROM customers
+WHERE lastname = "maung"
+); (Note:unique phit ma ya ml)
+
+INSERT INTO customers(firstname,lastname,email)
+VALUES ("htoo","aung","htooaung@gmail.com");
+
+
+error = Subquery returns more than 1 row(Note:aung 2 khu so tot unique ma phit tot loh error tat)
+SELECT * FROM orders WHERE customer_id = (
+SELECT id FROM customers
+WHERE lastname = "aung"
+); 
+
+
+*empty set(Note:customer_id 8 ka order tin htar tr ma shi loh)
+SELECT * FROM orders WHERE customer_id = 8;
+
+
+*empty set(Note:htooaung ka order tin htar tr ma shi loh)
+SELECT * FROM orders WHERE customer_id = (
+SELECT id FROM customers
+WHERE email = "htooaung@gmail.com"
+); 
+
+SELECT * FROM customers,orders;
+
+SELECT * FROM orders,customers;
+
+____________________________________________
+
+
+
+CUSTOMERS			
+id	firstname	lastname	email
+1	aung	aung	aungaung@gmail.com
+2	maung	maung	maungmaung@gmail.com
+3	kyaw	kyaw	kyawkyaw@gmail.com
+4	zaw	zaw	zawzaw@gmail.com
+5	su	su	susu@gmail.com
+6	aye	aye	ayeaye@gmail.com
+7	yu	yu	yuyu@gmail.com
+
+
+ORDERS			
+id	orderdate	amount	customer_id
+1	2021/02/10	99.99	1
+2	2021/10/11	75.35	1
+3	2021/06/12	100.26	3
+4	2021/07/13	13.25	2
+5	2021/01/14	45      3
+
+____________________________________________
+
+=>Cross Join
+
+SELECT * FROM customers;
+SELECT * FROM orders;
+
+*Result = Mixing result show
+SELECT * FROM customers,orders;  note = start with last id in customers=>start with first id in orders
+SELECT * FROM orders,customers;
+
+____________________________________________

@@ -1,0 +1,36 @@
+username = ssh wdf5253@dltmyanmar.net
+           ssh wdf5253@dltmyanmar.com
+password = datalandtechnology
+
+mysql -WDF5253 -p
+
+*********************************************
+
+exit (to exit from database)
+\q
+
+(Method2) [with space]
+mysql -u WDF5312 -p
+
+*********************************************
+=>Version Check
+
+(method1 = in server)
+mysql -V
+
+(method2 = in mysql)
+help;   (shortcut /h)
+status;
+
+**********************************************
+
+=>Arithmetic Operators (5 types)
+
+Operators				Meaning										Works on
+
+
++(add)					additon										numeric vale
+-(subtract)				subtraction									numeric vale
+*(multiply)				multiplication								numeric vale
+/(divide)				division									numeric vale
+%(modulus)				returns remainder of a division				numeric vale

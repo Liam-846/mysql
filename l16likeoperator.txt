@@ -1,0 +1,75 @@
+=> LIKE OPERATOR
+
+Wildcards
+
+WHERE customeername LIKE 'a%' Finds any values that start with "a"
+WHERE customeername LIKE '%a' Finds any values that end with "a"
+WHERE customeername LIKE '%or%' Finds any values that have "or" in any position
+WHERE customeername LIKE '_r%' Finds any values that have "r" in the second position
+WHERE customeername LIKE 'a_%' Finds any values that start with "a" and are at least 2 characters length
+WHERE customeername LIKE 'a%o' Finds any values that start with "a" and ends with "o"
+
+Syntax
+
+Method 1
+
+SELECT * FROM tablename 
+Where columnname LIKE pattern;
+
+Method 2
+
+SELECT column1,column2,column3,....
+FROM tablename 
+WHERE columnname LIKE pattern;
+
+
+___________________________________________________
+
+EXERCISE
+
+SELECT name,age,salary,city 
+FROM employees
+WHERE name LIKE 'maung maung';
+
+SELECT name,age,salary,city 
+FROM employees
+WHERE name LIKE 'maung maung';
+
+SELECT name,age,salary,city
+FROM employees
+WHERE columnname LIKE '%ng';
+
+SELECT name,age,salary,city
+FROM employees
+WHERE columnname LIKE '%zaw%';
+
+SELECT name,age,salary,city 
+FROM employees 
+WHERE columnname LIKE '_a';
+
+___________________________________________________
+
+EXERCISE (LIKe '____)
+
+SELECT * FROM employees;
+
+xxxxxx
+SELECT * FROM employees WHERE salary LIKE '_____';
+
+xxxxxx 
+SELECT * FROM employees WHERE salary LIKE '____';
+
+SELECT * FROM employees WHERE salary LIKE '_';
+
+
+SELECT * FROM employees WHERE salary '_'
+
+EXERCISE (LIKe '%') IS anythings
+
+SELECT * FROM employees WHERE salary LIKE '%';
+
+face_book
+SELECT * FROM employees WHERE name LIKE '%\_%';
+
+10%happy
+SELECT * FROM employees WHERE name LIKE '%\%%';

@@ -1,0 +1,158 @@
+=>Database Trigger 
+
+=>Syntax
+
+CREATE TRIGGER triggername 
+trigger_time triggent_event ON tablename FOR EACH ROW 
+BEGIN 
+    --  STATEMENTS 
+END
+
+=>trigger_time 
+BEFORE 
+AFTER
+
+=> trigger_event
+INSERT 
+UPDATE 
+DELETE
+
+______________________________
+
+CREATE TABLE IF NOT EXISTS borrowers(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(255),
+    age INT,
+    status INT DEFAULT 1
+);
+
+DESC borrowers;
+
+1 18 45
+2 < 18
+3 > 35
+
+INSERT INTO borrowers(username,password,age)
+VALUES ('aung aung',MD5(SHA1('12345')),18),
+('zaw zaw',MD5(SHA1('12345')),30);
+
+SELECT * FROM borrowers;
+
+______________________________
+=>IF Statement (IF-THEN-ELSE statement)
+
+IF condition1 THEN 
+    ..... statements to execute
+ELSEIF condition2 THEN
+    ..... statements to execute 
+ELSEIF condition3 THEN 
+    ..... statements to execute 
+ELSE 
+    ..... statements to execute 
+END IF;
+______________________________
+
+=>BEFORE INSERT 
+
+Note : DELIMITER // DELIMITER | DELIMITER $$
+
+DELIMITER //
+
+CREATE TRIGGER borrowerstatus_bfc
+BEFORE INSERT 
+ON borrowers FOR EACH ROW
+BEGIN 
+    IF NEW.age < 18 THEN SET NEW.status = 2 ;
+END IF;
+END; //
+
+DELIMITER ;
+
+SHOW TRIGGERS;
+SHOW TRIGGERS LIKE 'borrowers%';
+SHOW TRIGGERS LIKE 'borrowers%'\G;
+
+INSERT INTO borrowers(username,password,age)
+VALUES('hninhnin',MD5(SHA1(12345)),16);
+
+SELECT * FROM borrowers;
+
+______________________________
+
+DELIMITER |
+
+CREATE TRIGGER borrowerstatus_bfc
+BEFORE INSERT 
+ON borrowers FOR EACH ROW
+BEGIN 
+    IF NEW.age < 18 THEN SET NEW.status = 2;
+    ELSEIF NEW.age > 45 THEN SET NEW.status = 3;
+    END IF;
+END; |
+
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS borrowerstatus_bfc;
+
+select * FROM borrowers;
+
+INSERT INTO borrowers(username,password,age)
+VALUES('yamin',MD5(SHA1(12345)),50);
+SELECT * FROM borrowers;
+
+INSERT INTO borrowers(username,password,age)
+VALUES('tuntun',MD5(SHA1(12345)),28);
+SELECT * FROM borrowers;
+
+INSERT INTO borrowers(username,password,age)
+VALUES('april',MD5(SHA1(12345)),12);
+SELECT * FROM borrowers;
+
+______________________________
+
+=>MYSQL ERRORS
+
+A numeric error code(1146)
+SQLSTATE value('42S02') . string / 5 characters
+Message String - description of the error 
+
+______________________________
+
+DELIMITER $$
+
+CREATE TRIGGER borrowerrestrict_bfc
+BEFORE INSERT ON borrowers FOR EACH ROW 
+BEGIN 
+    IF NEW.age < 18 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = "OMG...we cannot provide loan for this user";
+    END IF;
+END; $$
+
+DELIMITER ;
+
+INSERT INTO borrowers(username,password,age)
+VALUES('susu',MD5(SHA1(12345)),35);
+SELECT * FROM borrowers;
+
+INSERT INTO borrowers(username,password,age)
+VALUES('tuntun',MD5(SHA1(12345)),28);
+SELECT * FROM borrowers;
+
+INSERT INTO borrowers(username,password,age)
+VALUES('april',MD5(SHA1(12345)),12);
+SELECT * FROM borrowers;
+
+DROP TRIGGER IF EXISTS borrowerrestrict_bfc;
+
+______________________________
+
+=>AFTER INSERT
+
+CREATE TABLE IF NOT EXISTS borrowercreaters(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    borrower_id INT,
+    create_at TIMESTAMP DEFAULT NOW(),
+    create_by VARCHAR(50)
+);

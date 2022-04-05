@@ -1,0 +1,39 @@
+=>Aliases ( Easier to read results )
+Aliases Syntax
+
+Select columnname AS aliases
+FROM tablenamed;
+
+its doen't change on record only on results 
+
+________________________________________________
+
+EXERCISE
+
+SELECT * FROM employees;
+
+SELECT name AS fullname
+FROM employees
+
+SELECT employeeid AS id
+FROM employees;
+
+SELECT employeeid AS id,name
+FROM employees;
+
+SELECT employeeid AS id,name AS fullname,age,salary
+FROM employees;
+
+SELECT employeeid AS id,name AS fullname,age,salary AS payamount
+FROM employees;
+
+SELECT employeeid AS id,name AS 'full name',age,salary AS payamount
+FROM employees;
+
+SELECT employeeid AS id,name AS 'full name',age,salary AS 'pay amount'
+FROM employees;
+
+SELECT employeeid AS id,
+name AS fullname,
+salary AS payamount
+FROM employees;

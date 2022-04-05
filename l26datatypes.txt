@@ -1,0 +1,233 @@
+=>Mysql DATA TYPES (Version V8)
+
+*String Data Types 
+Data Types                                  Description
+1.  CHAR(size)                              A FIXED Lnegth string ( can contain letters, numbers and special character). can be from  0 to 255.
+
+2.  VARCHAR(size)                           A Variable Length string (can contain letters, numbers and special character). can be from 0 to 65535.
+
+3.  TEXT(size)                              can be from 0 to 65536
+
+4.  TINYTEXT                                can be from 0 to 255
+
+5.  MEDIUMTEXT                              can be from 0 to 16777215 characters    (16 MB)
+
+6.  LONGTEXT                                can be from 0 to 5294967295 characters
+
+7.  BINARY()
+
+8.  VABINARY()
+
+9.  BLOB(size)
+
+10. TINYBLOB
+
+11. MEDIUMBLOB
+
+12. LONGBLOB
+
+13. ENUM('value1','value2','value3',...)
+
+14. SET('value1','value2','value3',...)
+
+
+
+
+_______________________________________
+
+=>About CHAR 
+*   CHAR is faster than VARCHAR
+*   Static Datatype
+*eg:    Telephone numbers, ZIP code
+*eg:    Yes/No Flags: Y/N 
+*eg:    Sex : Male/Female Flags: M/F 
+
+Non-Unicode = 1 Character = 1 byte 
+1 byte = 8 bit
+CHAR(4) VS VARCHAR(4)
+Value                   CHAR(4)         Storage             VARCHAR(4)              Storage 
+''                      '       '       4 bytes             ''                      1 byte
+'ab'                    'ab     '       4 bytes             'ab'                    3 byte
+'abc'                   'abc    '       4 bytes             'abc'                   4 byte
+'abcd'                  'abcd   '       4 bytes             'abcd'                  5 byte
+'abcdefg'               'abcdefg'       4 bytes             'abcdefg'                 byte
+
+
+CREATE contacts (
+    name CHAR(5)
+);
+
+DESC contacts;
+
+INSERTS INTO contacts (name)
+VALUE('ko');
+
+INSERTS INTO contacts (name )
+VALUE('ko ko');
+
+INSERTS INTO contacts(name)
+VALUE('Hello');
+
+INSERTS INOT contacts (name)
+VALUE('Haynow');
+
+INSERTS INTO contacts(name)
+VALUES('aung'),
+    ('maung'),
+    ('ko');
+
+DROP TABLE contacts;
+
+_______________________________________
+
+CREATE TABLE contacts(
+    name VARCHAR(5)
+);
+
+INSERTS INTO contacts(name)
+VALUE('ko');
+
+INSERT INTO contacts(name)
+VALUE('ko ko');
+
+INSERT INTO contacts(name)
+VALUE('haynow');
+
+INSERT INTO contacts(name)
+VALUE('now hay');
+
+INSERTS INTO contacts(name)
+VALUES('aung'),
+    ('maung'),
+    ('ko');
+
+DROP TABLE contacts;
+
+_______________________________________
+
+=>CHAR() / VARCHAR() VS TEXT()
+
+CREATE TABLE mytests(
+    id INT DEFAULT 10,
+    name VARCHAR(50)
+);
+
+DESC mytests;
+
+INSERT INTO mytests(name)
+VALUES ('aung aung');
+
+SELECT * FROM mytests;
+
+DROP TABLE mytests;
+
+CREATE TABLE mytests(
+    id INT DEFAULT 10,
+    name VARCHAR(50)
+);
+
+DESC mytests;
+
+INSERT INTO mytests(name)
+VALUES ('aung aung');
+
+INSERT INTO mytests(id)
+VALUES (10);
+
+SELECT * FROM mytests;
+
+DROP TABLE mytests;
+
+*error (BLOB, TEXT, GEOMETRY or JSON can't have a DEFAULT value)
+CREATE TABLE mytests(
+    id INT,
+    name TEXT(50) DEFAULT "hay now"
+);
+
+_______________________________________
+
+=>VARIABLES
+
+SHOW VARIABLES;
+
+SHOW CHARACTER SET;
+
+*utf8_general_ci(ci is case insensitive) maxlength 3 is mean 3bytes per character.
+
+*SHOW CHARACTER SET = for a single Database
+*CHECK CHARSET 
+SHOW VARIABLES LIKE 'character_set_database';
+
+*CHECK COLLECTION
+SHOW VARIABLES LIKE 'collation_database';
+
+CREATE TABLE mytests(
+    col1 TINYTEXT,
+    col2 TEXT,
+    col3 MEDIUMTEXT,
+    col4 LONGTEXT
+);
+
+DROP TABLE mytests;
+
+CREATE TABLE mytests(
+    col1 TEXT,
+    col2 TEXT(0),
+    col3 TEXT(5)
+);
+
+INSERT INTO mytests (col1,col2,col3)
+VALUE ('aung aung', 'maung maung', 'aung kyaw kyaw');
+
+DESC mytests;
+
+DROP TABLE mytests;
+
+_______________________________________
+
+CREATE TABLE mytests(
+    col1 TEXT(255), -- 1-255 tinytext 
+    col2 TEXT(65535), -- 256-65535 text 
+    col3 TEXT(16777215), -- 65535-166777215 mediumtext 
+    col4 TEXT(4294967295) -- 166777216-4294967295 longtext 
+) ENGINE = InnoDB CHARSET = latin2;
+
+SHOW FULL COLUMNS FROM mytests;
+DESC mytests;
+
+SHOW TABLE STATUS WHERE NAME LIKE 'tablename';
+
+SHOW CREATE TABLE mytests;
+
+DROP TABLE mytests;
+
+CREATE TABLE mytests(
+    col1 TEXT(255), -- 1-255 tinytext 
+    col2 TEXT(65535), -- 256-65535 text 
+    col3 TEXT(16777215), -- 65535-166777215 mediumtext 
+    col4 TEXT(4294967295) -- 166777216-4294967295 longtext 
+) ENGINE = InnoDB CHARSET = utf8;
+
+DESC mytests;
+
+DROP TABLE mytests;
+
+CREATE TABLE mytests(
+    col1 TEXT(85), -- 1-85 tinytext 
+    col2 TEXT(21845), -- 86-21845 text 
+    col3 TEXT(5592405), -- 21846-5592405 mediumtext 
+    col4 TEXT(4294967295) -- 5592406-4294967295 longtext 
+) ENGINE = InnoDB CHARSET = utf8;
+
+SHOW TABLE STATUS WHERE NAME LIKE 'mytests';
+
+SHOW CREATE TABLE mytests;
+
+DROP TABLE mytests;
+
+SHOW DATABASES;
+
+*SHOW CHARACTER SET = for ALL Databases;
+SHOW DATABASES
+SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA;
+SELECT SCHEMA_NAME 'databases' FROM

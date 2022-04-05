@@ -1,0 +1,70 @@
+=>CREATE TABLE
+
+*SERVER LOGIN
+*DATABASE SERVER LOGIN
+*CHOOSE DATABASE ( DATABASE CHECK )
+
+=>CHECK TABLE;
+SHOW TABLES;
+
+=>CREATE TABEL = Syntax
+
+CREATE TABEL tabel_names(
+    column1 datatype,
+    column2 datatype,
+    column3 datatype
+);
+
+=>DELETE TABLE = Syntax
+DROP TABLE tablename;
+
+
+
+CREATE TABLE persons(
+    personid int,
+    firstname varchar(255),
+    lastname varchar(255),
+    city varchar(255),
+    address varchar(255)
+);
+
+datatype = int (numeric)
+         = varchar (){0 to 255};
+
+
+SHOW TABLES;
+
+=>Table Info(Describe)
+Method1
+DESC persons;
+
+Method2
+SHOW COLUMNS FROM perosns;
+
+__________________________________________________
+=>Option
+
+CREATE TABLE countries(
+    countryid int,
+    countryname varchar(255),
+    capitalname varchar(255),
+    currency varchar(255)
+);
+
+=>No Option
+
+CREATE TABLE countries(
+    countryid int NOT NULL,
+    countryname varchar(255) NOT NULL,
+    capitalname varchar(225),
+    currency varchar(225)
+);
+
+CREATE TABLE students(
+    studentid int NOT NULL,
+    firstname varchar(225) NOT NULL,
+    middlename varchar(225),
+    lastname varchar(225) NOT NULL,
+    gender varchar(225) NOT NULL,
+    city varchar(225)
+);
